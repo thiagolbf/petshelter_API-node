@@ -7,6 +7,5 @@
 - Node.JS (Typescript)
 - Express.JS
 - Zod
-- Pg
 - typeORM
 - PostgreSQL
