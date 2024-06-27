@@ -1,7 +1,12 @@
+import "dotenv/config";
 import express, { Application } from "express";
+import { AppDataSourcer } from "./data-source";
 
-const PORT: number = 3000;
 const app: Application = express();
 
-const runningMsg: string = `Server running on http://localhost:${PORT}`;
-app.listen(PORT, () => console.log("rodando....."));
+AppDataSourcer.initialize().then((): void => {
+  console.log("Database connected");
+
+  const PORT: number = Number(process.env.PORT || 3000);
+  app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+});
