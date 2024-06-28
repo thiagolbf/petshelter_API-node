@@ -37,11 +37,11 @@ export class Pet {
   @UpdateDateColumn({ type: "date" })
   updatedAt: string | null;
 
-  @OneToOne(() => User, (user) => user.pet)
+  @OneToOne(() => User, (user) => user.pet, { onDelete: "CASCADE" })
   @JoinColumn()
   user: User;
 
-  @OneToOne(() => Shelter, (shelter) => shelter.pet)
+  @OneToOne(() => Shelter, (shelter) => shelter.pet, { onDelete: "CASCADE" })
   @JoinColumn()
   shelter: Shelter;
 }
