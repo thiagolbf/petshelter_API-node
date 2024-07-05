@@ -9,5 +9,6 @@ const userSchema = z.object({
 });
 
 const createUserSchema = userSchema.omit({ id: true });
+const returnUserSchema = userSchema.omit({ password: true });
 
-export { userSchema, createUserSchema };
+export { userSchema, createUserSchema, returnUserSchema };
