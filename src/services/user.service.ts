@@ -1,6 +1,6 @@
 import { UserRequest, UserReturn } from "../interfaces/user.interface";
 import { User } from "../entities/user.entity.ts";
-import { returnUserSchema, userSchema } from "../schemas/user.schema";
+import { returnUserSchema } from "../schemas/user.schema";
 import userRepository from "../repositories/user.repository";
 
 export const createUserService = async (

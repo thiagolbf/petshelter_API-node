@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { adressSchema } from "./adress.schema";
 
 const shelterSchema = z.object({
   id: z.number().positive(),
@@ -9,6 +10,14 @@ const shelterSchema = z.object({
 });
 
 const createShelterSchema = shelterSchema.omit({ id: true });
-const readShelterSchema = shelterSchema.array();
+const returnShelterSchema = shelterSchema.omit({ password: true });
+const readShelterSchema = returnShelterSchema
+  .extend({ address: adressSchema })
+  .array();
 
-export { shelterSchema, readShelterSchema, createShelterSchema };
+export {
+  shelterSchema,
+  readShelterSchema,
+  createShelterSchema,
+  returnShelterSchema,
+};
