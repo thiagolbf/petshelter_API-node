@@ -22,8 +22,8 @@ export const createShelterService = async (
 
 export const readeShelterService = async (): Promise<ShelterRead> => {
   // const shelters = await shelterRepository
-  //   .createQueryBuilder('shelter')
-  //   .leftJoin("shelter.address", "address")
+  //   .createQueryBuilder("shelters")
+  //   .leftJoin("shelter.address", "addresses")
   //   .select([
   //     "shelter.id",
   //     "shelter.name",
@@ -38,8 +38,8 @@ export const readeShelterService = async (): Promise<ShelterRead> => {
   //   .getMany();
 
   const shelters = await shelterRepository
-    .createQueryBuilder("shelters")
-    .leftJoin("shelter.adress", "addresses")
+    .createQueryBuilder("shelter")
+    .leftJoin("shelter.adress", "adress")
     .getMany();
 
   return readShelterSchema.parse(shelters);

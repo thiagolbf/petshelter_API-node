@@ -12,7 +12,7 @@ const shelterSchema = z.object({
 const createShelterSchema = shelterSchema.omit({ id: true });
 const returnShelterSchema = shelterSchema.omit({ password: true });
 const readShelterSchema = returnShelterSchema
-  .extend({ address: adressSchema })
+  .extend({ address: adressSchema.optional() })
   .array();
 
 export {

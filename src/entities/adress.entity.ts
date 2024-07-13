@@ -25,7 +25,7 @@ export class Adress {
   @Column({ length: 2 })
   state: string;
 
-  @OneToOne(() => Shelter)
+  @OneToOne(() => Shelter, (shelter) => shelter.adress)
   @JoinColumn()
   shelter: Shelter;
 }

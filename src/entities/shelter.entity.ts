@@ -1,6 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from "typeorm";
 import { Pet } from "./pet.entity";
 
+import { Adress } from "./adress.entity";
+
 @Entity("shelters")
 export class Shelter {
   @PrimaryGeneratedColumn("increment")
@@ -20,4 +22,7 @@ export class Shelter {
 
   @OneToOne(() => Pet, (pet) => pet.shelter)
   pet: Pet;
+
+  @OneToOne(() => Adress, (adress) => adress.shelter)
+  adress: Adress;
 }

@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { shelterSchema } from "../schemas/shelter.schema";
+import { shelterSchema, returnShelterSchema } from "../schemas/shelter.schema";
 
 const petSchema = z.object({
   id: z.number().positive(),
@@ -13,7 +13,9 @@ const petSchema = z.object({
   updateAt: z.date(),
 });
 
-const readPetSchema = petSchema.extend({ shelter: shelterSchema }).array();
+const readPetSchema = petSchema
+  .extend({ shelter: returnShelterSchema })
+  .array();
 
 const createPetSchema = petSchema.omit({
   id: true,

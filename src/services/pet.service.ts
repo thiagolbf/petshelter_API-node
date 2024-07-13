@@ -13,8 +13,9 @@ export const createPetService = async (payload: PetRequest): Promise<Pet> => {
 
 export const readPetService = async (): Promise<PetRead> => {
   const pets = await petRepository
-    .createQueryBuilder("pets")
-    .leftJoin("pet.shelter", "shelters");
+    .createQueryBuilder("pet")
+    .leftJoin("pet.shelter", "shelter")
+    .getMany();
 
   return readPetSchema.parse(pets);
 };
