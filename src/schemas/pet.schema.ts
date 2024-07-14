@@ -1,11 +1,11 @@
 import { z } from "zod";
 
-import { shelterSchema, returnShelterSchema } from "../schemas/shelter.schema";
+import { returnShelterSchema } from "../schemas/shelter.schema";
 
 const petSchema = z.object({
   id: z.number().positive(),
   animalType: z.enum(["cachorro", "gato"]),
-  gender: z.enum(["male", "female"]),
+  gender: z.enum(["macho", "femea"]),
   adopted: z.boolean().default(false),
   castrated: z.boolean().default(false),
   bio: z.string().default("no content"),

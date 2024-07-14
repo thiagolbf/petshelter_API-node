@@ -8,8 +8,8 @@ import {
 
 import { Shelter } from "./shelter.entity";
 
-@Entity("adresses")
-export class Adress {
+@Entity("addresses")
+export class Address {
   @PrimaryGeneratedColumn("increment")
   id: number;
 
@@ -25,7 +25,6 @@ export class Adress {
   @Column({ length: 2 })
   state: string;
 
-  @OneToOne(() => Shelter, (shelter) => shelter.adress)
-  @JoinColumn()
+  @OneToOne(() => Shelter, (shelter) => shelter.address)
   shelter: Shelter;
 }

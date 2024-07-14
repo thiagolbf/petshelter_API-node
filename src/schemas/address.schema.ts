@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const adressSchema = z.object({
+const addressSchema = z.object({
   id: z.number().positive(),
   street: z.string().max(45),
   zipcode: z.string().max(8),
@@ -8,6 +8,6 @@ const adressSchema = z.object({
   state: z.string().max(2),
 });
 
-const createAdressSchema = adressSchema.omit({ id: true });
+const createAddressSchema = addressSchema.omit({ id: true });
 
-export { adressSchema, createAdressSchema };
+export { addressSchema, createAddressSchema };

@@ -9,15 +9,26 @@ import {
   returnShelterSchema,
 } from "../schemas/shelter.schema";
 import shelterRepository from "../repositories/shelter.repository";
+import addressRepository from "../repositories/address.repository";
+import { Address } from "../entities/address.entity";
 
 export const createShelterService = async (
   payload: ShelterRequest
 ): Promise<ShelterReturn> => {
-  const shelter: Shelter = shelterRepository.create(payload);
+  const address: Address = addressRepository.create(payload.address);
+  await addressRepository.save(address);
 
-  await shelterRepository.save(shelter);
+  const shelter: Shelter = shelterRepository.create({
+    name: payload.name,
+    email: payload.email,
+    whatsApp: payload.whatsApp,
+    password: payload.password,
+    address: address,
+  });
 
-  return returnShelterSchema.parse(shelter);
+  const savedShelter = await shelterRepository.save(shelter);
+
+  return returnShelterSchema.parse(savedShelter);
 };
 
 export const readeShelterService = async (): Promise<ShelterRead> => {
@@ -39,7 +50,8 @@ export const readeShelterService = async (): Promise<ShelterRead> => {
 
   const shelters = await shelterRepository
     .createQueryBuilder("shelter")
-    .leftJoin("shelter.adress", "adress")
+    .leftJoinAndSelect("shelter.address", "address")
+    .orderBy("shelter.name", "ASC")
     .getMany();
 
   return readShelterSchema.parse(shelters);

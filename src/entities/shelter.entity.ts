@@ -1,7 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToOne,
+  JoinColumn,
+} from "typeorm";
 import { Pet } from "./pet.entity";
 
-import { Adress } from "./adress.entity";
+import { Address } from "./address.entity";
 
 @Entity("shelters")
 export class Shelter {
@@ -23,6 +29,7 @@ export class Shelter {
   @OneToOne(() => Pet, (pet) => pet.shelter)
   pet: Pet;
 
-  @OneToOne(() => Adress, (adress) => adress.shelter)
-  adress: Adress;
+  @OneToOne(() => Address, (address) => address.shelter)
+  @JoinColumn()
+  address: Address;
 }

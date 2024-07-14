@@ -20,7 +20,7 @@ export class Pet {
   animalType: "cachorro" | "gato";
 
   @Column({ type: "enum", enum: ["macho", "femea"], name: "gender" })
-  gender: "male" | "female";
+  gender: "macho" | "femea";
 
   @Column({ default: false })
   adopted: boolean;
