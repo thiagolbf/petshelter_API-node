@@ -2,6 +2,7 @@ import { PetRead, PetRequest, PetUpdate } from "../interfaces/pet.interface";
 import { Pet } from "../entities/pet.entity";
 import { readPetSchema } from "../schemas/pet.schema";
 import petRepository from "../repositories/pet.repository";
+import userRepository from "../repositories/user.repository";
 
 export const createPetService = async (payload: PetRequest): Promise<Pet> => {
   const pet: Pet = petRepository.create(payload);
@@ -40,4 +41,26 @@ export const deletePetService = async (petId: number): Promise<void> => {
   const pet: Pet | null = await petRepository.findOneBy({ id: petId });
 
   await petRepository.remove(pet!);
+};
+
+export const adoptPetService = async (
+  petId: number,
+  userId: number
+): Promise<Pet> => {
+  const pet = await petRepository.findOneBy({ id: petId });
+  const user = await userRepository.findOneBy({ id: userId });
+
+  if (!pet) {
+    throw new Error("Pet not found");
+  }
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  pet.user = user;
+  pet.adopted = true;
+  await petRepository.save(pet);
+
+  return pet;
 };

@@ -5,6 +5,7 @@ import {
   Entity,
   BeforeInsert,
   BeforeUpdate,
+  OneToMany,
 } from "typeorm";
 import { Pet } from "./pet.entity";
 
@@ -25,6 +26,6 @@ export class User {
   @Column({ length: 120 })
   password: string;
 
-  @OneToOne(() => Pet, (pet) => pet.user)
-  pet: Pet;
+  @OneToMany(() => Pet, (pet) => pet.user)
+  pets: Pet[];
 }

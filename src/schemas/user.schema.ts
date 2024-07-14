@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { listPet } from "../schemas/pet.schema";
 
 const userSchema = z.object({
   id: z.number().positive(),
@@ -10,5 +11,12 @@ const userSchema = z.object({
 
 const createUserSchema = userSchema.omit({ id: true });
 const returnUserSchema = userSchema.omit({ password: true });
+const listPetUserSchema = userSchema
+  .omit({
+    password: true,
+    email: true,
+    cpf: true,
+  })
+  .extend({ pets: z.array(listPet) });
 
-export { userSchema, createUserSchema, returnUserSchema };
+export { userSchema, createUserSchema, returnUserSchema, listPetUserSchema };

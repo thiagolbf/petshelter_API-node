@@ -23,6 +23,8 @@ const createPetSchema = petSchema.omit({
   updateAt: true,
 });
 
+const listPet = petSchema.omit({ createdAt: true, updateAt: true });
+
 const updatePetSchema = petSchema.omit({ createdAt: true, updateAt: true });
 
-export { petSchema, readPetSchema, createPetSchema, updatePetSchema };
+export { petSchema, readPetSchema, createPetSchema, updatePetSchema, listPet };

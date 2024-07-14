@@ -6,6 +6,7 @@ import {
   UpdateDateColumn,
   OneToOne,
   JoinColumn,
+  ManyToOne,
 } from "typeorm";
 
 import { Shelter } from "./shelter.entity";
@@ -37,7 +38,7 @@ export class Pet {
   @UpdateDateColumn({ type: "date" })
   updatedAt: string | null;
 
-  @OneToOne(() => User, (user) => user.pet, { onDelete: "CASCADE" })
+  @ManyToOne(() => User, (user) => user.pets, { onDelete: "CASCADE" })
   @JoinColumn()
   user: User;
 
