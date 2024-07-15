@@ -3,6 +3,8 @@ import {
   readPetService,
   createPetService,
   adoptPetService,
+  deletePetService,
+  updatePetService,
 } from "../services/pet.service";
 import { PetRead } from "../interfaces/pet.interface";
 import { Pet } from "../entities/pet.entity";
@@ -23,6 +25,24 @@ export const createPetController = async (
   const pet: Pet = await createPetService(req.body);
 
   return res.status(201).json(pet);
+};
+
+export const deletePetController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const pet = await deletePetService(req.body.petId);
+
+  return res.status(204).json();
+};
+
+export const updatePetController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const petUpdated: Pet = await updatePetService(req.body, req.body.petId);
+
+  return res.status(200).json(petUpdated);
 };
 
 export const adoptPetController = async (

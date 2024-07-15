@@ -32,12 +32,6 @@ export const listUserPetService = async (
     .where("pet.userId = :userId", { userId })
     .getMany();
 
-  // return listPetUserSchema.parse({
-  //   id: user.id,
-  //   name: user.name,
-  //   pets: { pets },
-  // });
-
   return listPetUserSchema.parse({
     id: user.id,
     name: user.name,
