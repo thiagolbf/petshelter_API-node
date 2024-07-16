@@ -51,7 +51,23 @@ export const readeShelterService = async (): Promise<ShelterRead> => {
   const shelters = await shelterRepository
     .createQueryBuilder("shelter")
     .leftJoinAndSelect("shelter.address", "address")
-    .orderBy("shelter.name", "ASC")
+    .orderBy("shelter.id", "ASC")
+    .getMany();
+
+  return readShelterSchema.parse(shelters);
+};
+
+export const readPaginationShelterService = async (
+  page: number
+): Promise<ShelterRead> => {
+  const pageSize = 5;
+
+  const shelters = await shelterRepository
+    .createQueryBuilder("shelter")
+    .leftJoinAndSelect("shelter.address", "address")
+    .orderBy("shelter.id", "ASC")
+    .take(pageSize)
+    .skip((page - 1) * pageSize)
     .getMany();
 
   return readShelterSchema.parse(shelters);
