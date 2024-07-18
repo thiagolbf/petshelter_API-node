@@ -1,3 +1,6 @@
+import "express-async-errors";
+import { errorHandler } from "./errors";
+
 import express, { Application, json } from "express";
 
 import petRouter from "./routes/pet.router";
@@ -10,5 +13,7 @@ app.use(json());
 app.use("/api/pet", petRouter);
 app.use("/api/shelter", shelterRouter);
 app.use("/api/user", userRouter);
+
+app.use(errorHandler);
 
 export default app;
