@@ -32,6 +32,10 @@ export const updatePetService = async (
     },
   });
 
+  if (findPet?.adopted) {
+    throw new Error("Pet adotado não pode ser atualizado");
+  }
+
   const updated = await petRepository.save({ ...findPet, ...payload });
 
   return updated;
@@ -51,11 +55,11 @@ export const adoptPetService = async (
   const user = await userRepository.findOneBy({ id: userId });
 
   if (!pet) {
-    throw new Error("Pet not found");
+    throw new Error("Pet não encontrado");
   }
 
   if (!user) {
-    throw new Error("User not found");
+    throw new Error("Usuário não encontrado");
   }
 
   pet.user = user;
