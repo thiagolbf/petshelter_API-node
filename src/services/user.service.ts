@@ -18,18 +18,16 @@ export const createUserService = async (
   return returnUserSchema.parse(user);
 };
 
-export const listUserPetService = async (
-  userId: number
-): Promise<ListUserPets> => {
-  const user = await userRepository.findOneBy({ id: userId });
+export const listUserPetService = async (user: User): Promise<ListUserPets> => {
+  // const user = await userRepository.findOneBy({ id: userId });
 
-  if (!user) {
-    throw new Error("User not found");
-  }
+  // if (!user) {
+  //   throw new Error("User not found");
+  // }
 
   const pets = await petRepository
     .createQueryBuilder("pet")
-    .where("pet.userId = :userId", { userId })
+    .where("pet.userId = :userId", { userId: user.id })
     .getMany();
 
   return listPetUserSchema.parse({

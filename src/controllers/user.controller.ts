@@ -18,7 +18,7 @@ export const listUserPetController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const userPet = await listUserPetService(req.body.userId);
+  const userPet = await listUserPetService(res.locals.user);
 
   return res.status(200).json(userPet);
 };

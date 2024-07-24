@@ -7,15 +7,26 @@ import {
   updatePetController,
 } from "../controllers/pet.controller";
 
+import { validateBody } from "../middlewares/validateBody.middleware";
+import { updatePetSchema } from "../schemas/pet.schema";
+import { createPetSchema } from "../schemas/pet.schema";
+
+import { verifyPetId } from "../middlewares/pet/verifyPetId.middleware";
+
 const petRouter: Router = Router();
 
-petRouter.post("", createPetController);
+petRouter.post("", validateBody(createPetSchema), createPetController);
 petRouter.post("/adopt", adoptPetController);
 
-petRouter.patch("", updatePetController);
+petRouter.patch(
+  "/:id",
+  verifyPetId,
+  validateBody(updatePetSchema),
+  updatePetController
+);
 
 petRouter.get("", readPetsController);
 
-petRouter.delete("", deletePetController);
+petRouter.delete("", verifyPetId, deletePetController);
 
 export default petRouter;

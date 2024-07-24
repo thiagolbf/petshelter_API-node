@@ -31,7 +31,7 @@ export const deletePetController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const pet = await deletePetService(req.body.petId);
+  const pet = await deletePetService(req.body.pet);
 
   return res.status(204).json();
 };
@@ -40,7 +40,7 @@ export const updatePetController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const petUpdated: Pet = await updatePetService(req.body, req.body.petId);
+  const petUpdated: Pet = await updatePetService(req.body, res.locals.pet);
 
   return res.status(200).json(petUpdated);
 };

@@ -23,28 +23,28 @@ export const readPetService = async (): Promise<PetRead> => {
 
 export const updatePetService = async (
   payload: PetUpdate,
-  petId: number
+  pet: Pet
 ): Promise<Pet> => {
   //   const updatedPet = await petRepository.update(petId, payload);
-  const findPet: Pet | null = await petRepository.findOne({
-    where: {
-      id: petId,
-    },
-  });
+  // const findPet: Pet | null = await petRepository.findOne({
+  //   where: {
+  //     id: petId,
+  //   },
+  // });
 
-  if (findPet?.adopted) {
+  if (pet.adopted) {
     throw new Error("Pet adotado não pode ser atualizado");
   }
 
-  const updated = await petRepository.save({ ...findPet, ...payload });
+  const updated = await petRepository.save({ ...pet, ...payload });
 
   return updated;
 };
 
-export const deletePetService = async (petId: number): Promise<void> => {
-  const pet: Pet | null = await petRepository.findOneBy({ id: petId });
+export const deletePetService = async (pet: Pet): Promise<void> => {
+  // const pet: Pet | null = await petRepository.findOneBy({ id: petId });
 
-  await petRepository.remove(pet!);
+  await petRepository.remove(pet);
 };
 
 export const adoptPetService = async (
