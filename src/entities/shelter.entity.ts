@@ -3,6 +3,7 @@ import {
   PrimaryGeneratedColumn,
   Column,
   OneToOne,
+  OneToMany,
   JoinColumn,
 } from "typeorm";
 import { Pet } from "./pet.entity";
@@ -26,8 +27,8 @@ export class Shelter {
   @Column({ length: 120 })
   password: string;
 
-  @OneToOne(() => Pet, (pet) => pet.shelter)
-  pet: Pet;
+  @OneToMany(() => Pet, (pet) => pet.shelter)
+  pets: Pet[];
 
   @OneToOne(() => Address, (address) => address.shelter)
   @JoinColumn()

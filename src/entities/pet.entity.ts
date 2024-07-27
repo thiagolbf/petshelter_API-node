@@ -17,8 +17,11 @@ export class Pet {
   @PrimaryGeneratedColumn("increment")
   id: number;
 
-  @Column({ type: "enum", enum: ["cachorro", "gato"], name: "animal_type" })
-  animalType: "cachorro" | "gato";
+  @Column({ length: 90 })
+  name: string;
+
+  @Column({ type: "enum", enum: ["cachorro", "gato"], name: "type" })
+  type: "cachorro" | "gato";
 
   @Column({ type: "enum", enum: ["macho", "femea"], name: "gender" })
   gender: "macho" | "femea";
@@ -42,7 +45,7 @@ export class Pet {
   @JoinColumn()
   user: User;
 
-  @OneToOne(() => Shelter, (shelter) => shelter.pet, { onDelete: "CASCADE" })
+  @ManyToOne(() => Shelter, (shelter) => shelter.pets, { onDelete: "CASCADE" })
   @JoinColumn()
   shelter: Shelter;
 }

@@ -9,6 +9,7 @@ const petSchema = z.object({
   adopted: z.boolean().default(false),
   castrated: z.boolean().default(false),
   bio: z.string().default("no content"),
+  shelterId: z.number(),
   createdAt: z.date(),
   updateAt: z.date(),
 });

@@ -8,7 +8,7 @@ export const verifyUserId = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const userId = parseInt(req.body.userId);
+  const userId = parseInt(req.body.userId) || parseInt(req.params.id);
 
   const user: User | null = await userRepository.findOneBy({ id: userId });
 

@@ -19,6 +19,7 @@ const dataSourceConfig = (): DataSourceOptions => {
     logging: true,
     entities: [entitiesPath],
     migrations: [migrationPath],
+    // schema: "public",
   };
 };
 
