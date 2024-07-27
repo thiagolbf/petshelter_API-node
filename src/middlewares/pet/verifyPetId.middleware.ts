@@ -8,7 +8,7 @@ export const verifyPetId = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const petId = parseInt(req.body.petId);
+  const petId = parseInt(req.body.petId) || parseInt(req.params.id);
 
   const pet: Pet | null = await petRepository.findOneBy({ id: petId });
 

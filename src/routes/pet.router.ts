@@ -12,10 +12,16 @@ import { updatePetSchema } from "../schemas/pet.schema";
 import { createPetSchema } from "../schemas/pet.schema";
 
 import { verifyPetId } from "../middlewares/pet/verifyPetId.middleware";
+import { verifyShelterId } from "../middlewares/shelter/verifyShelterId.middleware";
 
 const petRouter: Router = Router();
 
-petRouter.post("", validateBody(createPetSchema), createPetController);
+petRouter.post(
+  "",
+  validateBody(createPetSchema),
+  verifyShelterId,
+  createPetController
+);
 petRouter.post("/adopt", adoptPetController);
 
 petRouter.patch(
