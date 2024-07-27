@@ -4,7 +4,8 @@ import { returnShelterSchema } from "../schemas/shelter.schema";
 
 const petSchema = z.object({
   id: z.number().positive(),
-  animalType: z.enum(["cachorro", "gato"]),
+  name: z.string().max(90),
+  type: z.enum(["cachorro", "gato"]),
   gender: z.enum(["macho", "femea"]),
   adopted: z.boolean().default(false),
   castrated: z.boolean().default(false),
