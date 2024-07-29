@@ -35,7 +35,8 @@ export const listUserPetService = async (user: User): Promise<ListUserPets> => {
     name: user.name,
     pets: pets.map((pet) => ({
       id: pet.id,
-      animalType: pet.animalType,
+      name: pet.name,
+      type: pet.type,
       gender: pet.gender,
       bio: pet.bio,
       castrated: pet.castrated,
