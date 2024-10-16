@@ -17,6 +17,8 @@ const listPetUserSchema = userSchema
     email: true,
     cpf: true,
   })
-  .extend({ pets: z.array(listPet) });
+  .extend({
+    pets: z.array(listPet.extend({ shelterId: z.string().optional() })),
+  });
 
 export { userSchema, createUserSchema, returnUserSchema, listPetUserSchema };

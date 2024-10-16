@@ -13,6 +13,7 @@ import { createPetSchema } from "../schemas/pet.schema";
 
 import { verifyPetId } from "../middlewares/pet/verifyPetId.middleware";
 import { verifyShelterId } from "../middlewares/shelter/verifyShelterId.middleware";
+import { verifyUserId } from "../middlewares/user/verifyUserId.middleware";
 
 const petRouter: Router = Router();
 

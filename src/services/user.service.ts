@@ -30,7 +30,9 @@ export const listUserPetService = async (user: User): Promise<ListUserPets> => {
     .where("pet.userId = :userId", { userId: user.id })
     .getMany();
 
-    console.log(pets)
+  console.log(pets);
+  console.log(user.id);
+  console.log(user.name);
 
   return listPetUserSchema.parse({
     id: user.id,
@@ -40,9 +42,11 @@ export const listUserPetService = async (user: User): Promise<ListUserPets> => {
       name: pet.name,
       type: pet.type,
       gender: pet.gender,
-      bio: pet.bio,
-      castrated: pet.castrated,
       adopted: pet.adopted,
+      castrated: pet.castrated,
+      bio: pet.bio,
+      createdAt: pet.createdAt,
+      updatedAt: pet.updatedAt,
     })),
   });
 };
