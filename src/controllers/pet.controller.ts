@@ -15,6 +15,8 @@ export const readPetsController = async (
 ): Promise<Response> => {
   const pets: PetRead = await readPetService();
 
+  console.log("chegou?");
+  console.log(pets);
   return res.status(200).json(pets);
 };
 

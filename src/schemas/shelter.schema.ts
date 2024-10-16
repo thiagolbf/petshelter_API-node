@@ -18,7 +18,7 @@ const returnShelterSchema = shelterSchema
   .extend({ address: addressSchema });
 
 const readShelterSchema = returnShelterSchema
-  .extend({ address: addressSchema.optional() })
+  .extend({ address: addressSchema.optional().nullable() })
   .array();
 
 export {

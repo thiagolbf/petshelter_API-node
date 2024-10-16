@@ -12,7 +12,8 @@ export const createPetService = async (payload: PetRequest): Promise<Pet> => {
   return pet;
 };
 
-export const readPetService = async (): Promise<PetRead> => {
+export const readPetService = async (): Promise<any> => {
+  console.log("chegouuu");
   const pets = await petRepository
     .createQueryBuilder("pet")
     .leftJoin("pet.shelter", "shelter")

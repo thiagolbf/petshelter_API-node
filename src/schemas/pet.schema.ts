@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 import { returnShelterSchema } from "../schemas/shelter.schema";
+import shelterRepository from "../repositories/shelter.repository";
 
 const petSchema = z.object({
   id: z.number().positive(),
@@ -11,22 +12,28 @@ const petSchema = z.object({
   castrated: z.boolean().default(false),
   bio: z.string().default("no content"),
   shelterId: z.number(),
-  createdAt: z.date(),
-  updateAt: z.date(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
 });
 
+// const readPetSchema = petSchema
+// .extend({ shelter: returnShelterSchema })
+// .array();
+
 const readPetSchema = petSchema
-  .extend({ shelter: returnShelterSchema })
+  .omit({
+    shelterId: true,
+  })
   .array();
 
 const createPetSchema = petSchema.omit({
   id: true,
   createdAt: true,
-  updateAt: true,
+  updatedAt: true,
 });
 
-const listPet = petSchema.omit({ createdAt: true, updateAt: true });
+const listPet = petSchema.omit({ createdAt: true, updatedAt: true });
 
-const updatePetSchema = petSchema.omit({ createdAt: true, updateAt: true });
+const updatePetSchema = petSchema.omit({ createdAt: true, updatedAt: true });
 
 export { petSchema, readPetSchema, createPetSchema, updatePetSchema, listPet };
