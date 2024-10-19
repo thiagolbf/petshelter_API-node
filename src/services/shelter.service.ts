@@ -12,21 +12,25 @@ import shelterRepository from "../repositories/shelter.repository";
 import addressRepository from "../repositories/address.repository";
 import { Address } from "../entities/address.entity";
 
+import { hash } from "bcryptjs";
+
 export const createShelterService = async (
   payload: ShelterRequest
 ): Promise<ShelterReturn> => {
   const address: Address = addressRepository.create(payload.address);
   await addressRepository.save(address);
 
-  const shelter: Shelter = shelterRepository.create({
+  const hashedPassword = await hash(payload.password, 10);
+
+  const newShelter: Shelter = shelterRepository.create({
     name: payload.name,
     email: payload.email,
     whatsApp: payload.whatsApp,
-    password: payload.password,
+    password: hashedPassword,
     address: address,
   });
 
-  const savedShelter = await shelterRepository.save(shelter);
+  const savedShelter = await shelterRepository.save(newShelter);
 
   return returnShelterSchema.parse(savedShelter);
 };

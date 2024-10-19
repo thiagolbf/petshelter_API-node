@@ -8,14 +8,23 @@ import { returnUserSchema, listPetUserSchema } from "../schemas/user.schema";
 import userRepository from "../repositories/user.repository";
 import petRepository from "../repositories/pet.repository";
 
+import { hash } from "bcryptjs";
+
 export const createUserService = async (
   payload: UserRequest
 ): Promise<UserReturn> => {
   const user: User = userRepository.create(payload);
 
-  await userRepository.save(user);
+  const hashedPassword = await hash(payload.password, 10);
 
-  return returnUserSchema.parse(user);
+  const newUser: UserRequest = {
+    ...user,
+    password: hashedPassword,
+  };
+
+  await userRepository.save(newUser);
+
+  return returnUserSchema.parse(newUser);
 };
 
 export const listUserPetService = async (user: User): Promise<ListUserPets> => {
