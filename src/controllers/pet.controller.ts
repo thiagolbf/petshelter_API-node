@@ -8,6 +8,7 @@ import {
 } from "../services/pet.service";
 import { PetRead } from "../interfaces/pet.interface";
 import { Pet } from "../entities/pet.entity";
+import { PetCreated } from "../interfaces/pet.interface";
 
 export const readPetsController = async (
   req: Request,
@@ -15,8 +16,6 @@ export const readPetsController = async (
 ): Promise<Response> => {
   const pets: PetRead = await readPetService();
 
-  console.log("chegou?");
-  console.log(pets);
   return res.status(200).json(pets);
 };
 
@@ -24,7 +23,7 @@ export const createPetController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const pet: Pet = await createPetService(req.body);
+  const pet: PetCreated = await createPetService(req.body, res.locals.shelter);
 
   return res.status(201).json(pet);
 };

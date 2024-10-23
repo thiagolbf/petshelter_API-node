@@ -19,4 +19,6 @@ export const verifyShelterId = async (
   }
 
   res.locals = { ...res.locals, shelter };
+
+  next();
 };

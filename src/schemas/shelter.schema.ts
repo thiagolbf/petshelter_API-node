@@ -7,6 +7,7 @@ const shelterSchema = z.object({
   email: z.string().email(),
   whatsApp: z.string().max(12),
   password: z.string().max(120),
+  address: addressSchema.optional().nullable(),
 });
 
 const createShelterSchema = shelterSchema

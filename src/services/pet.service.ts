@@ -1,24 +1,39 @@
-import { PetRead, PetRequest, PetUpdate } from "../interfaces/pet.interface";
+import {
+  PetRead,
+  PetRequest,
+  PetUpdate,
+  PetCreated,
+} from "../interfaces/pet.interface";
 import { Pet } from "../entities/pet.entity";
-import { readPetSchema } from "../schemas/pet.schema";
+import {
+  createdPet,
+  createPetSchema,
+  readPetSchema,
+} from "../schemas/pet.schema";
 import petRepository from "../repositories/pet.repository";
 import userRepository from "../repositories/user.repository";
 import { AppError } from "../errors";
+import { Shelter } from "../entities/shelter.entity";
 
-export const createPetService = async (payload: PetRequest): Promise<Pet> => {
-  const pet: Pet = petRepository.create(payload);
+export const createPetService = async (
+  payload: PetRequest,
+  shelter: Shelter
+): Promise<PetCreated> => {
+  const pet: Pet = petRepository.create({ ...payload, shelter });
 
   await petRepository.save(pet);
 
-  return pet;
+  return createdPet.parse(pet);
 };
 
 export const readPetService = async (): Promise<any> => {
-  console.log("chegouuu");
   const pets = await petRepository
     .createQueryBuilder("pet")
-    .leftJoin("pet.shelter", "shelter")
+    .leftJoinAndSelect("pet.shelter", "shelter")
+    .leftJoinAndSelect("shelter.address", "address")
     .getMany();
+
+  // console.log(JSON.stringify(pets, null, 2));
 
   return readPetSchema.parse(pets);
 };
@@ -56,7 +71,6 @@ export const adoptPetService = async (
   const pet = await petRepository.findOneBy({ id: petId });
   const user = await userRepository.findOneBy({ id: userId });
 
-  console.log("entrou aqui");
   if (!pet) {
     throw new AppError("Pet não encontrado", 400);
   }
