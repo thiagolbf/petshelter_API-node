@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { listPet } from "../schemas/pet.schema";
+import { listPet, readPetSchema } from "../schemas/pet.schema";
 
 const userSchema = z.object({
   id: z.number().positive(),

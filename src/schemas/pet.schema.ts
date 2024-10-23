@@ -3,6 +3,7 @@ import { z } from "zod";
 import { returnShelterSchema, shelterSchema } from "../schemas/shelter.schema";
 import shelterRepository from "../repositories/shelter.repository";
 import { addressSchema } from "./address.schema";
+import { userSchema } from "./user.schema";
 
 const petSchema = z.object({
   id: z.number().positive(),
@@ -17,19 +18,11 @@ const petSchema = z.object({
   updatedAt: z.string(),
 });
 
-// const readPetSchema = petSchema
-//   .omit({
-//     shelterId: true,
-//   })
-//   .extend({
-//     shelter: shelterSchema
-//       .omit({
-//         password: true,
-//       })
-//       .optional()
-//       .nullable(),
-//   })
-//   .array();
+// const readAdpoptedPetsSchema = userSchema.omit({
+//   email: true,
+//   cpf: true,
+//   password: true,
+// });
 
 const readPetSchema = petSchema
   .omit({

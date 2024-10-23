@@ -1,10 +1,7 @@
-import {
-  UserRequest,
-  UserReturn,
-  ListUserPets,
-} from "../interfaces/user.interface";
+import { UserRequest, UserReturn } from "../interfaces/user.interface";
 import { User } from "../entities/user.entity.ts";
-import { returnUserSchema, listPetUserSchema } from "../schemas/user.schema";
+import { returnUserSchema } from "../schemas/user.schema";
+import { readPetSchema } from "../schemas/pet.schema";
 import userRepository from "../repositories/user.repository";
 import petRepository from "../repositories/pet.repository";
 
@@ -27,35 +24,13 @@ export const createUserService = async (
   return returnUserSchema.parse(newUser);
 };
 
-export const listUserPetService = async (user: User): Promise<ListUserPets> => {
-  // const user = await userRepository.findOneBy({ id: userId });
-
-  // if (!user) {
-  //   throw new Error("User not found");
-  // }
-
+export const listUserPetService = async (user: User): Promise<any> => {
   const pets = await petRepository
     .createQueryBuilder("pet")
+    .leftJoinAndSelect("pet.shelter", "shelter")
+    .leftJoinAndSelect("shelter.address", "address")
     .where("pet.userId = :userId", { userId: user.id })
     .getMany();
 
-  console.log(pets);
-  console.log(user.id);
-  console.log(user.name);
-
-  return listPetUserSchema.parse({
-    id: user.id,
-    name: user.name,
-    pets: pets.map((pet) => ({
-      id: pet.id,
-      name: pet.name,
-      type: pet.type,
-      gender: pet.gender,
-      adopted: pet.adopted,
-      castrated: pet.castrated,
-      bio: pet.bio,
-      createdAt: pet.createdAt,
-      updatedAt: pet.updatedAt,
-    })),
-  });
+  return readPetSchema.parse(pets);
 };
