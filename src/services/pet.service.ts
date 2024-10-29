@@ -50,7 +50,7 @@ export const updatePetService = async (
   // });
 
   if (pet.adopted) {
-    throw new Error("Pet adotado não pode ser atualizado");
+    throw new AppError("Pet adotado não pode ser atualizado", 400);
   }
 
   const updated = await petRepository.save({ ...pet, ...payload });
