@@ -21,7 +21,10 @@ const errorHandler = (
   }
 
   if (error instanceof ZodError) {
-    return res.status(400).json(error.flatten().fieldErrors);
+    return res.status(400).json({
+      message: "Erro de validação nos dados enviados",
+      errors: error.errors,
+    });
   }
 
   console.log(error);

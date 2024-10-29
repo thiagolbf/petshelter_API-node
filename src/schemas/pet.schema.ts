@@ -51,7 +51,10 @@ const createdPet = petSchema.omit({
 
 const listPet = petSchema.omit({ createdAt: true, updatedAt: true });
 
-const updatePetSchema = petSchema.omit({ createdAt: true, updatedAt: true });
+const updatePetSchema = petSchema
+  .omit({ createdAt: true, updatedAt: true })
+  .partial()
+  .strict();
 
 export {
   petSchema,
