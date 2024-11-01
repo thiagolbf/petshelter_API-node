@@ -1,5 +1,9 @@
+import "dotenv/config";
+
 import { AppError } from "../errors";
 import { compare } from "bcryptjs";
+
+import jwt from "jsonwebtoken";
 
 import userRepository from "../repositories/user.repository";
 import shelterRepository from "../repositories/shelter.repository";
@@ -16,7 +20,9 @@ export const createLoginService = async (payload: any): Promise<any> => {
   if (foundUser) {
     checkPassword = await compare(payload.password, foundUser.password);
     if (!checkPassword) throw new AppError("Invalid credentials", 401);
-    return "ok";
+    return jwt.sign({ id: foundUser.id }, process.env.JWT_SECRET as string, {
+      expiresIn: "24h",
+    });
   }
 
   if (foundShelter) {
@@ -24,7 +30,9 @@ export const createLoginService = async (payload: any): Promise<any> => {
     console.log(foundShelter);
     console.log(payload.password);
     if (!checkPassword) throw new AppError("Invalid credentials", 401);
-    return "ok";
+    return jwt.sign({ id: foundShelter.id }, process.env.JWT_SECRET as string, {
+      expiresIn: "24h",
+    });
   }
 
   if (!foundShelter || !foundUser) {
