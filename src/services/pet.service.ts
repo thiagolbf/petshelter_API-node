@@ -33,8 +33,6 @@ export const readPetService = async (): Promise<any> => {
     .leftJoinAndSelect("shelter.address", "address")
     .getMany();
 
-  // console.log(JSON.stringify(pets, null, 2));
-
   return readPetSchema.parse(pets);
 };
 

@@ -27,8 +27,7 @@ export const createLoginService = async (payload: any): Promise<any> => {
 
   if (foundShelter) {
     checkPassword = await compare(payload.password, foundShelter.password);
-    console.log(foundShelter);
-    console.log(payload.password);
+
     if (!checkPassword) throw new AppError("Invalid credentials", 401);
     return jwt.sign({ id: foundShelter.id }, process.env.JWT_SECRET as string, {
       expiresIn: "24h",
