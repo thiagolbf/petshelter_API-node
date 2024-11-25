@@ -4,8 +4,12 @@
 
 #### Tecnologias utilizadas;
 
-- Node.JS (Typescript)
+- - Node.JS (Typescript)
 - Express.JS
+- Express-async-errors
 - Zod
+- Bcryptjs
+- Jsonwebtoken
+- Pg
 - typeORM
 - PostgreSQL
