@@ -1,8 +1,8 @@
-#### API para gerenciamento de abrigos/adoção de pets
+## API para gerenciamento de abrigos/adoção de pets
 
-#### Tecnologias utilizadas;
+### Tecnologias utilizadas;
 
-- - Node.JS (Typescript)
+- Node.JS (Typescript)
 - Express.JS
 - Express-async-errors
 - Zod
